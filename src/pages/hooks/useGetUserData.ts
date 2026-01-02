@@ -7,6 +7,8 @@ const useGetUserData = () => {
     role: "",
   });
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const getUserRole = async () => {
       try {
@@ -23,23 +25,26 @@ const useGetUserData = () => {
             .single();
           if (userRoleError) {
             console.error(userRoleError);
+            setLoading(false);
           } else {
             setUser({
               email: data.user.email || "",
               role: userRole.role,
             });
+            setLoading(false);
             console.log(userRole);
           }
         }
       } catch (error) {
         console.error(error);
+        setLoading(false);
       }
     };
 
     getUserRole();
   }, []);
 
-  return user;
+  return { ...user, loading };
 };
 
 export default useGetUserData;

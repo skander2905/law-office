@@ -1,23 +1,11 @@
-import { Button } from "@mui/material";
-import { supabase } from "../utils/supabase";
-import { useNavigate } from "react-router-dom";
+import useGetUserData from "./hooks/useGetUserData";
+import LawyerDashboard from "./LawyerDashboard";
+import ClientDashboard from "./ClientDashboard";
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-  const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error(error);
-    } else {
-      navigate("/");
-    }
-  };
-  return (
-    <div>
-      Dashboard
-      <Button onClick={signOut}>Sign Out</Button>
-    </div>
-  );
+  const { email, role } = useGetUserData();
+
+  return <>{role === "lawyer" ? <LawyerDashboard email={email} /> : <ClientDashboard email={email} />}</>;
 };
 
 export default Dashboard;

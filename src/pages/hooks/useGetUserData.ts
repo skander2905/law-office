@@ -19,9 +19,9 @@ const useGetUserData = () => {
           console.log(data);
           const userId = data.user.id;
           const { data: userRole, error: userRoleError } = await supabase
-            .from("userRoles")
+            .from("userroles")
             .select("role")
-            .eq("userId", userId)
+            .eq("userid", userId)
             .single();
           if (userRoleError) {
             console.error(userRoleError);

@@ -28,8 +28,10 @@ const LandingPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [signInLoading, setSignInLoading] = useState(false);
 
   const loginUser = async () => {
+    setSignInLoading(true);
     try {
       const { error, data } = await supabase.auth.signInWithPassword({
         email,
@@ -37,11 +39,14 @@ const LandingPage = () => {
       });
       if (error) {
         setError(error.message);
+        setSignInLoading(false)
       } else {
         console.log(data);
+        setSignInLoading(false)
         navigate("/dashboard");
       }
     } catch (error) {
+      setSignInLoading(false)
       setError("An error occurred. Please try again.");
     }
   };
@@ -263,6 +268,7 @@ const LandingPage = () => {
                         variant="contained"
                         size="large"
                         fullWidth
+                        loading={signInLoading}
                       >
                         Sign In
                       </Button>

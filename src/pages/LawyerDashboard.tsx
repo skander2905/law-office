@@ -6,9 +6,7 @@ const LawyerDashboard = ({ email }: { email: string }) => {
   const navigate = useNavigate();
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error(error);
-    } else {
+    if (!error) {
       navigate("/");
     }
   };

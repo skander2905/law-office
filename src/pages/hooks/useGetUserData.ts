@@ -16,7 +16,6 @@ const useGetUserData = () => {
         if (error) {
           console.error(error);
         } else {
-          console.log(data);
           const userId = data.user.id;
           const { data: userRole, error: userRoleError } = await supabase
             .from("userroles")
@@ -24,7 +23,6 @@ const useGetUserData = () => {
             .eq("userid", userId)
             .single();
           if (userRoleError) {
-            console.error(userRoleError);
             setLoading(false);
           } else {
             setUser({
@@ -32,11 +30,9 @@ const useGetUserData = () => {
               role: userRole.role,
             });
             setLoading(false);
-            console.log(userRole);
           }
         }
       } catch (error) {
-        console.error(error);
         setLoading(false);
       }
     };

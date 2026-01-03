@@ -33,7 +33,7 @@ const LandingPage = () => {
   const loginUser = async () => {
     setSignInLoading(true);
     try {
-      const { error, data } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -41,7 +41,6 @@ const LandingPage = () => {
         setError(error.message);
         setSignInLoading(false)
       } else {
-        console.log(data);
         setSignInLoading(false)
         navigate("/dashboard");
       }
@@ -52,7 +51,6 @@ const LandingPage = () => {
   };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(email, password);
     loginUser();
   };
 
